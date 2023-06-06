@@ -26,8 +26,9 @@ class AppDatabaseUtils private constructor() {
 //    private val MIGRATION_1_2 = object : Migration(1, 2) {
 //        override fun migrate(database: SupportSQLiteDatabase) {
 //            //User 表 新增Book列
-//            database.execSQL("ALTER TABLE user ADD COLUMN bookId TEXT NOT NULL DEFAULT ''")
-//            database.execSQL("ALTER TABLE user ADD COLUMN bookName TEXT")
+//            database.execSQL("CREATE TABLE Book (bookId TEXT DEFAULT '', bookName TEXT, PRIMARY KEY(bookId))");
+//            database.execSQL("ALTER TABLE user ADD COLUMN bookId TEXT DEFAULT ''")
+//            database.execSQL("ALTER TABLE user ADD COLUMN bookName TEXT DEFAULT ''")
 //        }
 //    }
 

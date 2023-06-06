@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.ddongwu.roomstudy.database.AppDatabaseUtils
+import com.ddongwu.roomstudy.database.Book
 import com.ddongwu.roomstudy.database.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,7 +76,8 @@ class MainActivity : AppCompatActivity() {
                                     id.toString(),
                                     "f$id",
                                     "l$id",
-                                    //Book(id, "书名$id")
+                                    Book(id, "书名$id"),
+                                    arrayListOf(Book(id, "书名$id 书名"), Book(id, "书名书名$id"))
                                 )
                                 lifecycleScope.launch(Dispatchers.IO) {
                                     AppDatabaseUtils.getInstance().userDao.insertAll(
@@ -93,7 +95,8 @@ class MainActivity : AppCompatActivity() {
                                         id,
                                         "f$id",
                                         "l$id",
-                                        //Book(id, "书名$id")
+                                        Book(id, "书名$id"),
+                                        arrayListOf(Book(id, "书名$id 书名"), Book(id, "书名书名$id"))
                                     )
                                     lifecycleScope.launch(Dispatchers.IO) {
                                         val insertNumber =
@@ -193,8 +196,7 @@ class MainActivity : AppCompatActivity() {
             override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
                 val model = mShowList[position]
                 holder.itemView.findViewById<TextView>(R.id.tv).apply {
-                    text = "${model.firstName}~~~~~~${model.lastName}}"
-                    //text = "${model.firstName}~~~~~~${model.lastName} \n 书名${model.favoriteBook?.bookName}"
+                    text = "${model.firstName}~~~~~~${model.lastName} 书名${model.favoriteBook?.bookName}"
                 }
             }
         }
