@@ -32,8 +32,11 @@ class MainActivity : AppCompatActivity() {
             "更新用户",
             "更新用户id",
             "删除用户",
+            "删除所有",
             "查询用户",
-            "查询用户id"
+            "查询第一页limit 10 offset 1",
+            "查询用户id",
+            "查询总条数"
         )
     }
 
@@ -127,10 +130,23 @@ class MainActivity : AppCompatActivity() {
                                     Log.d("123===", "=====$resultI")
                                 }
                             }
-
+                            "删除所有" ->{
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    AppDatabaseUtils.getInstance().userDao.deleteAll()
+                                }
+                            }
                             "查询用户" -> {
                                 lifecycleScope.launch(Dispatchers.IO) {
-                                    val list = AppDatabaseUtils.getInstance().userDao.getAll()
+                                    val list = AppDatabaseUtils.getInstance().userDao.findAll()
+                                    Log.d("123===", "=====${list?.size}")
+                                    mShowList.clear()
+                                    list?.let { it1 -> mShowList.addAll(it1) }
+                                }
+                            }
+
+                            "查询第一页limit 10 offset 1" ->{
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    val list = AppDatabaseUtils.getInstance().userDao.findByPage(10, 1)
                                     Log.d("123===", "=====${list?.size}")
                                     mShowList.clear()
                                     list?.let { it1 -> mShowList.addAll(it1) }
@@ -167,6 +183,14 @@ class MainActivity : AppCompatActivity() {
                                     val updateUid = queryEd.text.toString()
                                     val i =
                                         AppDatabaseUtils.getInstance().userDao.updateUser(updateUid)
+                                    Log.d("123===", "=====$i")
+                                }
+                            }
+                            "查询总条数"->{
+                                mShowList.clear()
+                                lifecycleScope.launch(Dispatchers.IO) {
+                                    val i =
+                                        AppDatabaseUtils.getInstance().userDao.count()
                                     Log.d("123===", "=====$i")
                                 }
                             }

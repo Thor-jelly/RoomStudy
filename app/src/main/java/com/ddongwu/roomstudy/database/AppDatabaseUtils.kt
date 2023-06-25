@@ -39,7 +39,9 @@ class AppDatabaseUtils private constructor() {
             "room-test"
         )/*.addMigrations(
             MIGRATION_1_2
-        )*/.build()
+        )*/
+            //.allowMainThreadQueries() //是否允许主线程
+            .build()
     }
 
     val userDao by lazy {
