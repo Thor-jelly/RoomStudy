@@ -140,11 +140,12 @@ interface UserDao {
     @Query("UPDATE user SET first_name='f' || :userId ||'  fend', lastName = 'l' || :userId || '  lend' WHERE uid=:userId")
     fun updateUser(userId: String): Int
 
+    // Insert方法可以没有返回值，有返回值的话则只能是Long类型的。若是主键是单一主键并且类型是整型的话，则返回插入的主键。若是非整型主键或者是组合主键的话，则返回插入的行数，从1开始。
     // 插入用户的注解，vararg表示可以一次插入多个用户
     // onConflict标识插入遇到冲突时的解决策略，可选REPLACE,ROLLBACK,ABORT,FAIL,IGNORE，简单明了，看单词就能明白作用
     // 并且replace会把原用数据移动到最后一条上
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg users: User): List<Long>?
+    fun insertAll(vararg users: User): List<Long>
 
     //删除用户
     @Delete
