@@ -34,6 +34,7 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE first_name LIKE '%' || :firstName || '%'")
     fun findByNameFuzzy(firstName: String): User?
 
+    //返回更新的条数
     //更新用户数据
     @Update
     fun updateUser(user: User): Int
@@ -49,6 +50,7 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg users: User): List<Long>
 
+    //返回删除的条数
     //删除用户
     @Delete
     fun delete(user: User): Int
