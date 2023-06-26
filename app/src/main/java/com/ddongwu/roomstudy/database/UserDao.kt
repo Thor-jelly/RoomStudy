@@ -23,6 +23,10 @@ interface UserDao {
     fun findByPage(limit: Int, offset: Int): List<User>?
 
     //根据用户id查询
+    @Query("SELECT * FROM user WHERE uid = :userId")
+    fun loadAllById(userId: Int): User?
+
+    //根据用户id查询
     @Query("SELECT * FROM user WHERE uid IN (:userId)")
     fun loadAllByIds(vararg userId: Int): List<User>?
 
