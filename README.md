@@ -133,7 +133,9 @@ interface UserDao {
     fun findByName(firstName: String, lastName: String): User?
 
     //模糊查询 ||相当于+号 百分号（%）代表零个、一个或多个数字或字符。下划线（_）代表一个单一的数字或字符。这些符号可以被组合使用。
+    //如果字段可能为NULL 情况 如果%% 是查询不到该数据的。可以在sql中使用IFNULL 或者 在逻辑层判断 
     @Query("SELECT * FROM user WHERE first_name LIKE '%' || :firstName || '%'")
+    //@Query("SELECT * FROM user WHERE IFNULL(first_name, '') LIKE '%' || :firstName || '%'")
     fun findByNameFuzzy(firstName: String): User?
 
     //更新用户数据
